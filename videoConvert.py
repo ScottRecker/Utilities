@@ -1,4 +1,5 @@
 import subprocess
+import sys
 import json
 
 def extract_video_info(filename):
@@ -38,7 +39,11 @@ def generate_av1_codec_string(video_info):
     return codec_string
 
 def main():
-    filename = input("Enter the path to the WebM file: ")
+    if len(sys.argv) < 2:
+        print("Usage: python program_name.py <filename>")
+        sys.exit(1)
+    
+    filename = sys.argv[1]
     video_info = extract_video_info(filename)
     
     for stream in video_info['streams']:
